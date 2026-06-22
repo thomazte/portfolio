@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO básico -->
+  <title>Thomaz Arthur — Desenvolvedor em formação</title>
+  <meta name="description" content="Portfólio de Thomaz Arthur, Desenvolvedor em formação. Conheça um pouco mais sobre mim, meus projetos e tecnologias." />
+  <meta name="author" content="Thomaz Arthur" />
+  <meta name="keywords" content="Thomaz Arthur, Desenvolvedor, Portfólio, Desenvolvedor de Software" />
+  <meta name="theme-color" content="#0a0a0b" />
+  <link rel="canonical" href="https://zamoht.exe/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Thomaz Arthur — Desenvolvedor em formação" />
+  <meta property="og:description" content="Portfólio de Thomaz Arthur, Desenvolvedor em formação. Conheça meus projetos, tecnologias e entre em contato." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:url" content="https://zamoht.exe/" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Thomaz Arthur — Desenvolvedor em formação" />
+  <meta name="twitter:description" content="Portfólio de Thomaz Arthur, Desenvolvedor em formação. Conheça meus projetos, tecnologias e entre em contato." />
+  <meta name="twitter:image" content="assets/og-image.svg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Dados estruturados (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Thomaz Arthur",
+    "jobTitle": "Desenvolvedor em formação",
+    "url": "https://zamoht.exe/",
+    "sameAs": [
+      "https://github.com/thomazte",
+      "https://www.linkedin.com/in/thomaz-arthur-a2a95b145"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Brilho de fundo decorativo (parallax controlado via JS) -->
+  <div class="bg-glow" data-glow aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar" data-navbar>
+    <nav class="nav container" aria-label="Navegação principal">
+      <a href="#hero" class="nav__logo">
+        zamoht<span class="nav__logo-accent">.exe</span>
+      </a>
+
+      <ul class="nav__links" data-nav-links>
+        <li><a href="#sobre" class="nav__link">Sobre</a></li>
+        <li><a href="#skills" class="nav__link">Skills</a></li>
+        <li><a href="#projetos" class="nav__link">Projetos</a></li>
+        <li><a href="#contato" class="nav__link">Contato</a></li>
+      </ul>
+
+      <button class="nav__toggle" data-nav-toggle aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu>
+      <ul class="mobile-menu__links">
+        <li><a href="#sobre" class="mobile-menu__link" data-mobile-link>Sobre</a></li>
+        <li><a href="#skills" class="mobile-menu__link" data-mobile-link>Skills</a></li>
+        <li><a href="#projetos" class="mobile-menu__link" data-mobile-link>Projetos</a></li>
+        <li><a href="#contato" class="mobile-menu__link" data-mobile-link>Contato</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section id="hero" class="hero container" aria-label="Apresentação">
+      <div class="hero__content">
+        <p class="hero__badge" data-hero-anim>
+          <span class="hero__badge-dot"></span> Disponível para novas oportunidades
+        </p>
+
+        <h1 class="hero__name" data-hero-anim>Thomaz Arthur</h1>
+
+        <h2 class="hero__title" data-hero-anim>
+          Desenvolvedor <span class="text-accent">em formação</span>
+        </h2>
+
+        <p class="hero__desc" data-hero-anim>
+          Desenvolvedor em formação e Analista de Suporte, com experiência prática em
+          <strong>SQL Server</strong> e vivência acadêmica em <strong>Java</strong>, <strong>PostgreSQL</strong>,
+          <strong>Spring Boot</strong> e <strong>JavaScript</strong>.
+          Foco em aplicações web, automação de tarefas e soluções organizadas que otimizam o dia a dia.
+        </p>
+
+        <div class="hero__actions" data-hero-anim>
+          <a href="#projetos" class="btn btn--primary">Ver projetos</a>
+          <a href="#contato" class="btn btn--ghost">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+            </svg>
+            Contato
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================== SOBRE ===================== -->
+    <section id="sobre" class="section container" aria-labelledby="sobre-titulo">
+      <header class="section__head" data-reveal>
+        <span class="section__index">01</span>
+        <h2 id="sobre-titulo" class="section__title">Sobre mim</h2>
+      </header>
+
+      <div class="about">
+        <div class="about__text" data-reveal>
+          <p>
+            Sou um desenvolvedor em <strong>formação</strong>.
+            Tenho como principal foco estar em constante aprendizado e colocar em prática o que estudo,
+             o que aprendi atuando como <strong>Analista de Suporte</strong> e combinando o conhecimento do dia a dia com o
+            aprofundamento técnico em desenvolvimento de software.
+          </p>
+          <p>
+            Gosto de transformar problemas em soluções organizadas, com código limpo, boas práticas e atenção aos detalhes.
+            Meu objetivo é evoluir como desenvolvedor e contribuir em projetos sólidos e bem construídos.
+          </p>
+        </div>
+
+        <div class="about__cards" data-stagger>
+          <article class="card about-card" data-stagger-item>
+            <h3 class="about-card__title">Formação</h3>
+            <p class="about-card__desc">
+              Atualmente estou cursando <strong>Análise e Desenvolvimento de Sistemas</strong> na <strong>UNIGOIÁS</strong>.
+              Com base sólida em lógica, programação orientada a objetos e desenvolvimento web.
+            </p>
+          </article>
+
+          <article class="card about-card" data-stagger-item>
+            <h3 class="about-card__title">Experiência</h3>
+            <p class="about-card__desc">
+              Analista de Suporte com vivência prática em SQL Server em ambiente profissional.
+            </p>
+          </article>
+
+          <article class="card about-card" data-stagger-item>
+            <h3 class="about-card__title">Objetivos</h3>
+            <p class="about-card__desc">
+              Crescer como desenvolvedor, atuar em projetos desafiadores e entregar soluções
+              de qualidade — com código limpo, boas práticas e foco em automação.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section id="skills" class="section container" aria-labelledby="skills-titulo">
+      <header class="section__head" data-reveal>
+        <span class="section__index">02</span>
+        <h2 id="skills-titulo" class="section__title">Tecnologias</h2>
+      </header>
+
+      <p class="section__lead" data-reveal>
+        Ferramentas e linguagens que utilizo para construir e manter softwares e ferramentas de automação de tarefas e processos.
+      </p>
+
+      <!-- Grid de skills gerado dinamicamente via JS -->
+      <ul class="skills" data-skills aria-label="Lista de tecnologias"></ul>
+    </section>
+
+    <!-- ===================== PROJETOS ===================== -->
+    <section id="projetos" class="section container" aria-labelledby="projetos-titulo">
+      <header class="section__head" data-reveal>
+        <span class="section__index">03</span>
+        <h2 id="projetos-titulo" class="section__title">Projetos</h2>
+      </header>
+
+      <p class="section__lead" data-reveal>
+        Alguns dos projetos que desenvolvi.
+      </p>
+
+      <!-- Filtros por categoria (gerados via JS) -->
+      <div class="projects-filters" data-filters role="tablist" aria-label="Filtrar projetos" data-reveal></div>
+
+      <!-- Grid de projetos gerado dinamicamente via JS (projects.js) -->
+      <div class="projects" data-projects aria-label="Lista de projetos"></div>
+    </section>
+
+    <!-- ===================== CONTATO ===================== -->
+    <section id="contato" class="section container" aria-labelledby="contato-titulo">
+      <header class="section__head" data-reveal>
+        <span class="section__index">04</span>
+        <h2 id="contato-titulo" class="section__title">Contato</h2>
+      </header>
+
+      <div class="contact" data-reveal>
+        <p class="contact__lead">
+          Estou aberto a oportunidades e novos projetos, entre em contato comigo!
+        </p>
+
+        <div class="contact__links">
+          <a href="mailto:zamoht.exe@gmail.com" class="contact-link">
+            <span class="contact-link__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </span>
+            <span class="contact-link__label">Email</span>
+          </a>
+
+          <a href="https://wa.me/5562984835669" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M.06 24l1.68-6.13A11.83 11.83 0 0 1 .16 11.9C.16 5.34 5.5 0 12.06 0a11.82 11.82 0 0 1 8.41 3.49 11.82 11.82 0 0 1 3.48 8.42c0 6.56-5.34 11.9-11.9 11.9a11.9 11.9 0 0 1-5.69-1.45L.06 24zM6.6 20.13l.36.22a9.86 9.86 0 0 0 5.02 1.38h.01c5.45 0 9.89-4.43 9.89-9.89a9.82 9.82 0 0 0-2.9-6.99 9.82 9.82 0 0 0-6.99-2.9c-5.46 0-9.9 4.43-9.9 9.89a9.86 9.86 0 0 0 1.51 5.26l.24.38-1 3.63 3.76-.99zM17.5 14.3c-.07-.12-.27-.2-.56-.34-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42z"/></svg>
+            </span>
+            <span class="contact-link__label">WhatsApp</span>
+          </a>
+
+          <a href="https://github.com/thomazte" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+            </span>
+            <span class="contact-link__label">GitHub</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/thomaz-arthur-a2a95b145" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            </span>
+            <span class="contact-link__label">LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="footer__logo">zamoht<span class="nav__logo-accent">.exe</span></span>
+      <p class="footer__text">© <span data-year></span> Thomaz Arthur.</p>
+    </div>
+  </footer>
+
+  <!-- ===================== MODAL DE PROJETO ===================== -->
+  <div class="modal" data-modal aria-hidden="true">
+    <div class="modal__overlay" data-modal-close></div>
+
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal__close" data-modal-close aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+
+      <div class="modal__cover" data-modal-cover></div>
+
+      <header class="modal__head">
+        <h3 class="modal__title" id="modal-title" data-modal-title></h3>
+        <span class="modal__category" data-modal-category></span>
+        <div class="modal__tags" data-modal-tags></div>
+      </header>
+
+      <div class="modal__body">
+        <nav class="modal__nav" data-modal-nav aria-label="Seções do projeto"></nav>
+        <div class="modal__content" data-modal-content tabindex="0"></div>
+      </div>
+
+      <footer class="modal__footer" data-modal-footer></footer>
+    </div>
+  </div>
+
+  <!-- Cursor customizado (GSAP) — ativado só em desktop via JS -->
+  <div class="cursor__dot" data-cursor-dot aria-hidden="true"></div>
+  <div class="cursor__ring" data-cursor-ring aria-hidden="true"></div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <!-- GSAP + ScrollTrigger via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- Scripts do projeto -->
+  <script src="js/projects.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/animations.js" defer></script>
+</body>
+</html>
