@@ -703,15 +703,9 @@ main,
   transform: scale(1.06);
 }
 
-/* Capa com logo de app (contain — logo completa, gradiente uniforme) */
+/* Capa com logo (contain). Cor/gradiente vêm do projeto via style inline. */
 .project-card__cover--contain {
   background-color: #1866fa;
-  background-image: radial-gradient(
-    ellipse 160% 130% at 50% 36%,
-    #3d8cff 0%,
-    #2474f7 45%,
-    #1866fa 100%
-  );
 }
 
 .project-card__cover--contain img {
@@ -893,16 +887,9 @@ main,
 }
 
 .modal__cover--contain {
-  background-color: #1866fa;
-  background-image: radial-gradient(
-    ellipse 160% 130% at 50% 36%,
-    #3d8cff 0%,
-    #2474f7 45%,
-    #1866fa 100%
-  );
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: contain, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
 }
 
 .modal__head {
@@ -1209,11 +1196,10 @@ main,
 }
 
 .contact__links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
-  max-width: 860px;
-  margin-inline: auto;
 }
 
 .contact-link {
@@ -1221,11 +1207,13 @@ main,
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 28px 20px;
+  gap: 10px;
+  width: 132px;
+  height: 132px;
+  padding: 16px 10px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 16px;
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease),
     background-color 0.3s var(--ease);
 }
@@ -1241,13 +1229,18 @@ main,
   transition: color 0.3s var(--ease);
 }
 
+.contact-link__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
 .contact-link:hover .contact-link__icon {
   color: var(--accent);
 }
 
 .contact-link__label {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.92rem;
 }
 
 /* =========================================================
@@ -1313,10 +1306,6 @@ main,
 @media (max-width: 600px) {
   .section {
     padding-block: 80px;
-  }
-
-  .contact__links {
-    grid-template-columns: 1fr;
   }
 
   .project-card__actions {

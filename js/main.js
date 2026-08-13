@@ -89,15 +89,21 @@
     return `<span class="category-label__dot" style="background:${color}"></span>`;
   }
 
-  const COVER_GRADIENT =
-    "radial-gradient(ellipse 160% 130% at 50% 36%, #3d8cff 0%, #2474f7 45%, #1866fa 100%)";
+  function coverBackgroundStyle(project) {
+    const { capaColor, capaGradient, capaContain } = project;
+    if (capaContain) {
+      const color = capaColor ? `background-color:${capaColor};` : "";
+      const grad = capaGradient ? `background-image:${capaGradient};` : "";
+      return `${color}${grad}`;
+    }
+    return capaColor ? `background-color:${capaColor};` : "";
+  }
 
   function coverMarkup(project, className) {
-    const { nome, imagem, capaColor, capaContain } = project;
+    const { nome, imagem, capaContain } = project;
     if (imagem) {
-      const bg = capaContain ? "" : capaColor ? `background-color:${capaColor};` : "";
       const containClass = capaContain ? `${className}--contain` : "";
-      return `<div class="${className} ${containClass}" style="${bg}">
+      return `<div class="${className} ${containClass}" style="${coverBackgroundStyle(project)}">
                 <img src="${escapeHTML(imagem)}" alt="Capa do projeto ${escapeHTML(nome)}" loading="lazy" />
               </div>`;
     }
@@ -322,8 +328,11 @@
     const cover = $("[data-modal-cover]");
     if (project.imagem) {
       if (project.capaContain) {
-        cover.style.backgroundColor = "#1866fa";
-        cover.style.backgroundImage = `url('${project.imagem}'), ${COVER_GRADIENT}`;
+        const grad =
+          project.capaGradient ||
+          "radial-gradient(ellipse 160% 130% at 50% 36%, #3d8cff 0%, #2474f7 45%, #1866fa 100%)";
+        cover.style.backgroundColor = project.capaColor || "#1866fa";
+        cover.style.backgroundImage = `url('${project.imagem}'), ${grad}`;
         cover.style.backgroundSize = "contain, cover";
         cover.style.backgroundPosition = "center, center";
         cover.style.backgroundRepeat = "no-repeat, no-repeat";

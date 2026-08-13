@@ -14,6 +14,7 @@
    - demo         (string)  URL do deploy/demo ("" oculta o botão)
    - imagem       (string)  Caminho da capa ("" usa placeholder)
    - capaColor    (string)  Cor de fundo da capa (ex.: "#1866FA")
+   - capaGradient (string)  Gradiente CSS da capa (usado com capaContain)
    - capaContain  (bool)    true = object-fit contain (logo completa)
 
    DETALHES (modal) — objeto "detalhes":
@@ -53,8 +54,113 @@
 
 const PROJECTS = [
   {
-    nome: "Organizaê",
+    nome: "Quebra-Código",
     categoria: "Acadêmicos",
+    descricao:
+      "Plataforma educacional web (TCC) com cursos, gamificação e mini-jogos. A lógica dos jogos roda no backend Java; o navegador cuida da interface.",
+    tecnologias: ["Java 21", "Spring Boot", "PostgreSQL", "JavaScript", "Playwright"],
+    github: "",
+    demo: "",
+    imagem: "assets/projects/quebracodigo-cover.png",
+    capaColor: "#0A0F2C",
+    capaGradient:
+      "linear-gradient(180deg, #0A0F2C 0%, #111A3A 20%, #1C2E6C 45%, #3A1F78 70%, #5C2D91 100%)",
+    capaContain: true,
+    detalhes: {
+      visaoGeral: {
+        oQueE:
+          "Plataforma educacional para ensino de programação, desenvolvida como TCC de Análise e Desenvolvimento de Sistemas. Reúne cursos, progressão do aluno, gamificação (pontos, moedas e conquistas) e mini-jogos interativos.",
+        problemaResolvido: [
+          "Aprender lógica de programação costuma ser abstrato e pouco engajador quando fica só em texto e exercícios estáticos.",
+          "O Quebra-Código combina cursos com jogos (Sudoku, Memória, Connect 4, 2048, Campo Minado) e um sistema de pontuação, para praticar de forma guiada e divertida.",
+        ],
+        funcionalidades: [
+          "Cadastro, login, sessão HTTP e recuperação de senha (BCrypt)",
+          "Cursos, lições e exercícios com acompanhamento de progresso",
+          "Gamificação: pontos, moedas, conquistas e notificações",
+          "Jogos com regras, validação e IA no backend Java",
+          "Frontend em HTML, CSS e JavaScript (renderização e input)",
+        ],
+      },
+      arquitetura: {
+        stack: [
+          { label: "Backend", value: "Java 21 + Spring Boot 3.3" },
+          { label: "Banco", value: "PostgreSQL 15 + Flyway (schema app)" },
+          { label: "Frontend", value: "HTML5, CSS3 e JavaScript" },
+          { label: "Auth", value: "HTTP Session + BCrypt" },
+          { label: "Testes", value: "Playwright (100 testes E2E/API)" },
+        ],
+        estrutura: [
+          { path: "api/", desc: "Controllers REST — auth, cursos, progresso e gamificação" },
+          { path: "service/", desc: "Regras de negócio, sessão e pontuação" },
+          { path: "model/ + repo/", desc: "Entidades JPA e repositórios Spring Data" },
+          { path: "game/", desc: "Sudoku, Memória, Connect 4, 2048, Campo Minado e Flow Free" },
+          { path: "security/", desc: "Filtros de sessão e cache" },
+          { path: "static/", desc: "Páginas, jogos e cursos no navegador" },
+          { path: "scripts/", desc: "Suite Playwright com Page Object Model" },
+        ],
+        decisoes: [
+          "Regras dos jogos no servidor — o frontend só renderiza e captura input",
+          "Connect 4 stateless: o cliente envia o tabuleiro a cada jogada",
+          "IA do Connect 4: vencer, bloquear ou preferir o centro",
+          "Sudoku gerado por backtracking, com 3 dificuldades",
+          "Flyway para versionar o schema no PostgreSQL",
+          "Testes isolados com usuário único por execução",
+        ],
+        secoes: [
+          {
+            titulo: "Separação frontend / backend",
+            texto: [
+              "Sudoku, Memória e Connect 4 tinham a lógica no JavaScript. A migração levou geração de tabuleiro, validação, IA e pontuação para o Spring Boot.",
+              "O navegador ficou responsável pela UI, animações e chamadas HTTP (fetch) aos endpoints REST.",
+            ],
+          },
+        ],
+      },
+      testes: {
+        cobertura: [
+          "Suite Playwright com 100 testes: autenticação, navegação, smoke e jogos (desktop e mobile).",
+          "Cobre API/contrato dos endpoints, fluxos E2E, validação de formulários e proteção de rotas sem sessão.",
+        ],
+        cenarios: [
+          "Login, cadastro, logout e bloqueio de páginas protegidas",
+          "Fluxo completo: cadastro → jogo → logout",
+          "Sudoku: geração, conflitos e solver",
+          "Memória: pares, virada de cartas e fórmula de score",
+          "Connect 4: gravidade, vitória e resposta da CPU no mesmo request",
+          "2048: movimentos, undo e restart",
+          "Campo Minado: primeiro clique seguro, bandeiras e dica",
+        ],
+      },
+      mer: {
+        intro:
+          "Modelo de dados principal (JPA). A migration Flyway cria usuarios; as demais tabelas seguem as entidades do domínio.",
+        entidades: [
+          { nome: "usuarios", campos: [["PK", "id"], ["", "nome"], ["", "email"], ["", "senha_hash"], ["", "pontos"], ["", "moedas"], ["", "user_role"]] },
+          { nome: "cursos", campos: [["PK", "id"], ["FK", "autor_id"], ["", "titulo"], ["", "codigo"], ["", "publicado"]] },
+          { nome: "licoes", campos: [["PK", "id"], ["FK", "curso_id"], ["FK", "jogo_id"], ["", "titulo"], ["", "ordem"]] },
+          { nome: "exercicios", campos: [["PK", "id"], ["FK", "licao_id"], ["FK", "jogo_id"], ["", "enunciado"], ["", "dificuldade"], ["", "pontos"]] },
+          { nome: "progresso", campos: [["PK", "id"], ["FK", "usuario_id"], ["FK", "licao_id"], ["", "status"], ["", "percentual"]] },
+          { nome: "jogos", campos: [["PK", "id"], ["", "nome"], ["", "slug"], ["", "tipo"]] },
+          { nome: "conquistas", campos: [["PK", "id"], ["FK", "usuario_id"], ["", "codigo"], ["", "titulo"]] },
+          { nome: "assinaturas", campos: [["PK", "id"], ["FK", "usuario_id"], ["", "plano"], ["", "status"]] },
+        ],
+        relacionamentos: [
+          "usuarios 1 — N cursos (autor)",
+          "cursos 1 — N licoes",
+          "licoes 1 — N exercicios",
+          "usuarios 1 — N progresso",
+          "licoes 1 — N progresso",
+          "usuarios 1 — N conquistas",
+          "usuarios 1 — N assinaturas",
+          "jogos 1 — N licoes / exercicios (opcional)",
+        ],
+      },
+    },
+  },
+  {
+    nome: "Organizaê",
+    categoria: "Projeto Comercial",
     descricao:
       "Planner financeiro pessoal para controlar gastos, metas e recorrências. Offline-first (PWA) com sync opcional via Supabase.",
     tecnologias: ["React", "TypeScript", "Supabase", "PWA"],
@@ -62,6 +168,8 @@ const PROJECTS = [
     demo: "",
     imagem: "assets/projects/organizae-cover.png",
     capaColor: "#1866FA",
+    capaGradient:
+      "radial-gradient(ellipse 160% 130% at 50% 36%, #3d8cff 0%, #2474f7 45%, #1866fa 100%)",
     capaContain: true,
     detalhes: {
       visaoGeral: {
@@ -157,7 +265,11 @@ const PROJECTS = [
     tecnologias: ["Python", "PowerShell"],
     github: "https://github.com/thomazte/remote-resolution",
     demo: "",
-    imagem: "",
+    imagem: "assets/projects/remote-resolution-cover.png",
+    capaColor: "#071526",
+    capaGradient:
+      "radial-gradient(ellipse 160% 130% at 50% 36%, #0c3a66 0%, #092038 50%, #071526 100%)",
+    capaContain: true,
     detalhes: {
       visaoGeral: {
         oQueE:
@@ -222,7 +334,11 @@ const PROJECTS = [
     tecnologias: ["Python"],
     github: "https://github.com/thomazte/agenda-implantacao",
     demo: "",
-    imagem: "",
+    imagem: "assets/projects/agenda-implantacao-cover.png",
+    capaColor: "#1a1412",
+    capaGradient:
+      "radial-gradient(ellipse 160% 130% at 50% 36%, #3a2218 0%, #1a1412 55%, #120e0c 100%)",
+    capaContain: true,
     detalhes: {
       visaoGeral: {
         oQueE:
