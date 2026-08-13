@@ -32,12 +32,19 @@
       '<svg viewBox="0 0 432.071 445.383" fill="currentColor"><path d="M402.395,271.23c-50.302,10.376-53.76-6.655-53.76-6.655c53.111-78.808,75.313-178.843,56.153-203.326c-52.27-66.785-142.752-35.2-144.262-34.38l-0.486,0.087c-9.938-2.063-21.06-3.292-33.56-3.496c-22.761-0.373-40.026,5.967-53.127,15.902c0,0-161.411-66.495-153.904,83.63c1.597,31.938,45.776,241.657,98.471,178.312c19.26-23.163,37.869-42.748,37.869-42.748c9.243,6.14,20.308,9.272,31.908,8.147l0.901-0.765c-0.28,2.876-0.152,5.689,0.361,9.019c-13.575,15.167-9.586,17.83-36.723,23.416c-27.459,5.659-11.328,15.734-0.796,18.367c12.768,3.193,42.307,7.716,62.266-20.224l-0.796,3.188c5.319,4.26,9.054,27.711,8.428,48.969c-0.626,21.259-1.044,35.854,3.147,47.254c4.191,11.4,8.368,37.05,44.042,29.406c29.809-6.388,45.256-22.942,47.405-50.555c1.525-19.631,4.976-16.729,5.194-34.28l2.768-8.309c3.192-26.611,0.507-35.196,18.872-31.203l4.463,0.392c13.517,0.615,31.208-2.174,41.587-7c22.362-10.376,35.622-27.7,13.572-23.148z"/></svg>',
     supabase:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3 4 12h6.5L7 21l9-9H9.5L11 3z"/></svg>',
+    docker:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="3" height="3"/><rect x="7" y="10" width="3" height="3"/><rect x="11" y="10" width="3" height="3"/><rect x="7" y="6" width="3" height="3"/><rect x="11" y="6" width="3" height="3"/><path d="M2 13h16c.5 2-1 5-5 5H7c-3 0-5-2-5-5Z"/><path d="M18 11c1-1 3-1 3 0"/></svg>',
+    junit:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v2.5c0 2.2-3 4-3 7.5a5 5 0 0 0 10 0c0-3.5-3-5.3-3-7.5V3"/><path d="m9 14 2 2 4-4"/></svg>',
+    playwright:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="m10 9 5 3-5 3V9z"/></svg>',
   };
 
   /* Lista de tecnologias exibidas na seção Skills */
   const SKILLS = [
     { name: "Java", icon: "code" },
     { name: "Spring Boot", icon: "spring" },
+    { name: "JUnit", icon: "junit" },
     { name: "JavaScript", icon: "js" },
     { name: "HTML", icon: "html" },
     { name: "CSS", icon: "css" },
@@ -46,6 +53,8 @@
     { name: "Supabase", icon: "supabase" },
     { name: "Git", icon: "git" },
     { name: "Python", icon: "python" },
+    { name: "Docker", icon: "docker" },
+    { name: "Playwright", icon: "playwright" },
   ];
 
   /* ---------------------------------------------------------
