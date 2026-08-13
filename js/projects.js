@@ -7,7 +7,7 @@
    CAMPOS DO CARD:
    - nome         (string)  Título do projeto
    - categoria    (string)  Categoria usada nos filtros
-                            ("Caso de estudo" | "Projeto Acadêmico" | "Projeto Comercial")
+                            ("Acadêmicos" | "Ferramentas" | "Projeto Comercial")
    - descricao    (string)  Descrição curta (card)
    - tecnologias  (array)   Lista de tecnologias
    - github       (string)  URL do repositório ("" oculta o botão)
@@ -54,7 +54,7 @@
 const PROJECTS = [
   {
     nome: "Organizaê",
-    categoria: "Caso de estudo",
+    categoria: "Acadêmicos",
     descricao:
       "Planner financeiro pessoal para controlar gastos, metas e recorrências. Offline-first (PWA) com sync opcional via Supabase.",
     tecnologias: ["React", "TypeScript", "Supabase", "PWA"],
@@ -151,7 +151,7 @@ const PROJECTS = [
   },
   {
     nome: "Remote Resolution",
-    categoria: "Projeto Comercial",
+    categoria: "Ferramentas",
     descricao:
       "Ferramenta para analistas de suporte que realizam atendimentos via acesso remoto, agilizando a resolução de chamados.",
     tecnologias: ["Python", "PowerShell"],
@@ -281,11 +281,15 @@ const PROJECTS = [
   },
 ];
 
-/* Cores dos marcadores de categoria (usadas nos cards/filtros/modal) */
+/* Ordem fixa dos filtros (Todos fica sempre primeiro).
+   Azul é exclusivo de "Todos" — definido em main.js via --accent. */
+const CATEGORY_FILTERS = ["Todos", "Acadêmicos", "Ferramentas", "Projeto Comercial"];
+
+/* Cores dos marcadores de categoria (cards, filtros e modal) */
 const CATEGORY_COLORS = {
-  "Caso de estudo": "#60a5fa",
-  "Projeto Acadêmico": "#34d399",
-  "Projeto Comercial": "#fbbf24",
+  Acadêmicos: "var(--cat-academicos)",
+  Ferramentas: "var(--cat-ferramentas)",
+  "Projeto Comercial": "var(--cat-comercial)",
 };
 
 /* Rótulos das abas do modal (ordem de exibição) */
@@ -333,6 +337,7 @@ async function fetchGithubRepos(username, { perPage = 6 } = {}) {
 
 // Expõe globalmente (scripts são carregados sem módulos)
 window.PROJECTS = PROJECTS;
+window.CATEGORY_FILTERS = CATEGORY_FILTERS;
 window.CATEGORY_COLORS = CATEGORY_COLORS;
 window.DETAIL_TABS = DETAIL_TABS;
 window.fetchGithubRepos = fetchGithubRepos;

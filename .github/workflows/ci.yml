@@ -1,0 +1,35 @@
+# CI — valida o projeto a cada push/PR.
+# O deploy continua na Vercel (integração Git). Não duplicar deploy aqui.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    name: Validar projeto
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Arquivos obrigatórios
+        run: |
+          test -f index.html
+          test -f css/style.css
+          test -f js/main.js
+          test -f js/projects.js
+          test -f js/animations.js
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Sintaxe JavaScript
+        run: |
+          node --check js/main.js
+          node --check js/projects.js
+          node --check js/animations.js

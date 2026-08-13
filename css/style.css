@@ -18,11 +18,16 @@
   --text-muted: #a1a1aa;
   --text-dim: #71717a;
 
-  /* Acento (azul) */
+  /* Acento (azul) — exclusivo do filtro "Todos" */
   --accent: #60a5fa;
   --accent-soft: #93c5fd;
   --accent-glow: rgba(59, 130, 246, 0.24);
   --accent-grad: linear-gradient(135deg, #2563eb, #60a5fa);
+
+  /* Categorias de projeto (sem azul) */
+  --cat-academicos: #34d399;
+  --cat-ferramentas: #22d3ee;
+  --cat-comercial: #fbbf24;
 
   /* Tipografia */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;

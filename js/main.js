@@ -110,8 +110,7 @@
     const container = $("[data-filters]");
     if (!container) return;
 
-    const categorias = [...new Set(allProjects.map((p) => p.categoria).filter(Boolean))];
-    const options = ["Todos", ...categorias];
+    const options = window.CATEGORY_FILTERS || ["Todos"];
 
     container.innerHTML = options
       .map((opt) => {
