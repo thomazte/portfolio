@@ -167,9 +167,9 @@ const PROJECTS = [
     github: "https://github.com/thomazte/injetbox",
     demo: "",
     imagem: "assets/projects/injetbox-cover.png",
-    capaColor: "#0a182e",
+    capaColor: "#002864",
     capaGradient:
-      "radial-gradient(ellipse 160% 130% at 50% 36%, #142845 0%, #0f2038 45%, #0a182e 100%)",
+      "radial-gradient(ellipse 160% 130% at 50% 36%, #2dc3fc 0%, #0278f8 45%, #002864 100%)",
     capaContain: true,
     detalhes: {
       visaoGeral: {

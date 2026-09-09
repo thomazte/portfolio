@@ -1,7 +1,8 @@
-"""Gera capa InjetBox no estilo Organizaê: logo transparente + cor sólida do ícone."""
+"""Capa InjetBox — gradiente igual ao ícone + logo centralizada (estilo Organizaê)."""
 
 from __future__ import annotations
 
+import math
 from collections import deque
 from pathlib import Path
 
@@ -11,35 +12,20 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "assets" / "projects" / "injetbox-logo-source.png"
 OUTPUT = ROOT / "assets" / "projects" / "injetbox-cover.png"
 
+# Cores amostradas do fundo do ícone InjetBox
+GRAD_LIGHT = (45, 195, 252)   # brilho ciano no topo
+GRAD_MID = (2, 120, 248)      # azul elétrico
+GRAD_EDGE = (0, 40, 100)      # borda escura do ícone
+
+COVER_W, COVER_H = 1920, 1080
+GRAD_CX, GRAD_CY = COVER_W / 2, COVER_H * 0.36
+
 
 def is_outer_black(r: int, g: int, b: int) -> bool:
-    return r <= 18 and g <= 18 and b <= 22
+    return r <= 18 and g <= 18 and b <= 25
 
 
-def is_icon_background(r: int, g: int, b: int) -> bool:
-    if is_outer_black(r, g, b):
-        return True
-
-    total = r + g + b
-    if total < 28:
-        return True
-    if total > 190:
-        return False
-
-    # Navy do fundo do ícone (gradiente escuro azulado)
-    if b >= r and g >= r - 8 and r < 85 and g < 95 and b < 130:
-        return total < 175
-
-    return False
-
-
-def flood_transparent(
-    px,
-    w: int,
-    h: int,
-    seeds: list[tuple[int, int]],
-    match,
-) -> None:
+def flood_transparent(px, w: int, h: int, seeds: list[tuple[int, int]], match) -> None:
     visited = [[False] * w for _ in range(h)]
     queue: deque[tuple[int, int]] = deque()
 
@@ -66,109 +52,94 @@ def flood_transparent(
             queue.append((nx, ny))
 
 
+def lerp(a: float, b: float, t: float) -> float:
+    return a + (b - a) * t
+
+
+def lerp_rgb(c1: tuple[int, int, int], c2: tuple[int, int, int], t: float) -> tuple[int, int, int]:
+    return (
+        int(lerp(c1[0], c2[0], t)),
+        int(lerp(c1[1], c2[1], t)),
+        int(lerp(c1[2], c2[2], t)),
+    )
+
+
+def sample_icon_gradient(x: int, y: int) -> tuple[int, int, int]:
+    """Réplica do gradiente radial do ícone."""
+    dx = (x - GRAD_CX) / (COVER_W * 0.55)
+    dy = (y - GRAD_CY) / (COVER_H * 0.65)
+    dist = math.sqrt(dx * dx + dy * dy)
+    t = min(1.0, dist)
+
+    if t < 0.45:
+        local = t / 0.45
+        return lerp_rgb(GRAD_LIGHT, GRAD_MID, local)
+    local = (t - 0.45) / 0.55
+    return lerp_rgb(GRAD_MID, GRAD_EDGE, local)
+
+
+def build_background() -> Image.Image:
+    img = Image.new("RGB", (COVER_W, COVER_H))
+    px = img.load()
+    for y in range(COVER_H):
+        for x in range(COVER_W):
+            px[x, y] = sample_icon_gradient(x, y)
+    return img
+
+
+def remove_outer_black(source: Image.Image) -> Image.Image:
+    rgba = source.convert("RGBA")
+    w, h = rgba.size
+    px = rgba.load()
+    flood_transparent(
+        px, w, h,
+        [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)],
+        is_outer_black,
+    )
+    return rgba
+
+
 def rgb_to_hex(r: int, g: int, b: int) -> str:
     return f"#{r:02x}{g:02x}{b:02x}"
 
 
-def sample_bg_color(img: Image.Image) -> tuple[int, int, int]:
-    w, h = img.size
-    px = img.load()
-    seeds = [
-        (w // 2, int(h * 0.12)),
-        (int(w * 0.12), int(h * 0.18)),
-        (int(w * 0.88), int(h * 0.18)),
-        (w // 2, int(h * 0.88)),
-        (int(w * 0.15), int(h * 0.85)),
-        (int(w * 0.85), int(h * 0.85)),
-    ]
-
-    samples: list[tuple[int, int, int]] = []
-    for x, y in seeds:
-        r, g, b, a = px[x, y]
-        if a > 0 and is_icon_background(r, g, b):
-            samples.append((r, g, b))
-
-    if not samples:
-        return (12, 28, 52)
-
-    r = sum(c[0] for c in samples) // len(samples)
-    g = sum(c[1] for c in samples) // len(samples)
-    b = sum(c[2] for c in samples) // len(samples)
-    return r, g, b
+def css_gradient() -> tuple[str, str]:
+    light = rgb_to_hex(*GRAD_LIGHT)
+    mid = rgb_to_hex(*GRAD_MID)
+    edge = rgb_to_hex(*GRAD_EDGE)
+    gradient = (
+        f"radial-gradient(ellipse 160% 130% at 50% 36%, {light} 0%, "
+        f"{mid} 45%, {edge} 100%)"
+    )
+    return edge, gradient
 
 
-def trim_transparent(img: Image.Image, padding: int = 8) -> Image.Image:
-    bbox = img.getbbox()
-    if not bbox:
-        return img
-    x0, y0, x1, y1 = bbox
-    x0 = max(0, x0 - padding)
-    y0 = max(0, y0 - padding)
-    x1 = min(img.width, x1 + padding)
-    y1 = min(img.height, y1 + padding)
-    return img.crop((x0, y0, x1, y1))
+def build_cover(source: Path) -> Image.Image:
+    icon = remove_outer_black(Image.open(source))
+    canvas = build_background()
 
+    target_h = int(COVER_H * 0.74)
+    scale = target_h / icon.height
+    target_w = int(icon.width * scale)
+    icon = icon.resize((target_w, target_h), Image.Resampling.LANCZOS)
 
-def add_transparent_padding(img: Image.Image, ratio: float = 0.18) -> Image.Image:
-    """Espaço transparente ao redor — mesma proporção visual do Organizaê (~75%)."""
-    bbox = img.getbbox()
-    if not bbox:
-        return img
-
-    cropped = img.crop(bbox)
-    w, h = cropped.size
-    pad_x = int(w * ratio)
-    pad_y = int(h * ratio)
-    canvas = Image.new("RGBA", (w + pad_x * 2, h + pad_y * 2), (0, 0, 0, 0))
-    canvas.paste(cropped, (pad_x, pad_y), cropped)
+    x = (COVER_W - target_w) // 2
+    y = (COVER_H - target_h) // 2
+    canvas.paste(icon, (x, y), icon)
     return canvas
-
-
-def build_logo(source: Path) -> tuple[Image.Image, tuple[int, int, int]]:
-    rgba = source.convert("RGBA")
-    w, h = rgba.size
-    px = rgba.load()
-
-    flood_transparent(
-        px,
-        w,
-        h,
-        [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)],
-        is_outer_black,
-    )
-
-    bg = sample_bg_color(rgba)
-
-    flood_transparent(
-        px,
-        w,
-        h,
-        [
-            (w // 2, int(h * 0.12)),
-            (int(w * 0.1), int(h * 0.2)),
-            (int(w * 0.9), int(h * 0.2)),
-            (int(w * 0.1), int(h * 0.82)),
-            (int(w * 0.9), int(h * 0.82)),
-            (w // 2, int(h * 0.86)),
-        ],
-        is_icon_background,
-    )
-
-    logo = trim_transparent(rgba)
-    logo = add_transparent_padding(logo)
-    return logo, bg
 
 
 def main() -> None:
     if not SOURCE.exists():
         raise SystemExit(f"Logo fonte não encontrada: {SOURCE}")
 
-    logo, bg = build_logo(Image.open(SOURCE))
-    logo.save(OUTPUT, "PNG", optimize=True)
+    cover = build_cover(SOURCE)
+    cover.save(OUTPUT, "PNG", optimize=True)
 
-    hex_color = rgb_to_hex(*bg)
-    print(f"Logo: {OUTPUT} ({logo.width}x{logo.height})")
-    print(f"capaColor sugerida: {hex_color}")
+    capa_color, capa_gradient = css_gradient()
+    print(f"Capa: {OUTPUT} ({COVER_W}x{COVER_H})")
+    print(f"capaColor: {capa_color}")
+    print(f"capaGradient: {capa_gradient}")
 
 
 if __name__ == "__main__":
