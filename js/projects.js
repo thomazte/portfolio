@@ -159,6 +159,111 @@ const PROJECTS = [
     },
   },
   {
+    nome: "InjetBox",
+    categoria: "Projeto Comercial",
+    descricao:
+      "Sistema B2B de controle de estoque para facilitar vendas. Multi-tenant, branding por empresa e distribuição web, desktop (Windows) e Android.",
+    tecnologias: ["React", "TypeScript", "Supabase", "Electron", "Capacitor", "Tailwind CSS"],
+    github: "https://github.com/thomazte/injetbox",
+    demo: "",
+    imagem: "assets/projects/injetbox-cover.png",
+    capaColor: "#0a182e",
+    capaGradient:
+      "radial-gradient(ellipse 160% 130% at 50% 36%, #142845 0%, #0f2038 45%, #0a182e 100%)",
+    capaContain: true,
+    detalhes: {
+      visaoGeral: {
+        oQueE:
+          "Sistema de controle de estoque B2B pensado para facilitar vendas no dia a dia. Cada estabelecimento opera em ambiente isolado, com identidade visual própria (nome, logo e cores), disponível na web, desktop Windows e Android.",
+        problemaResolvido: [
+          "Pequenos negócios costumam controlar estoque em planilhas ou sistemas genéricos, sem histórico confiável nem alertas de reposição.",
+          "O InjetBox centraliza peças, movimentações e alertas de baixo estoque em uma interface simples, com isolamento por empresa e builds prontos para demonstração comercial ou operação real.",
+        ],
+        funcionalidades: [
+          "Cadastro e consulta de peças com filtros e busca",
+          "Entrada, saída e ajuste de estoque com histórico auditável",
+          "Alertas de baixo estoque e estoque zerado",
+          "Branding por empresa (logo, cores e nome)",
+          "Importação de planilhas (XLSX)",
+          "Três modos no mesmo código: demo, operação e catálogo",
+          "Distribuição web, desktop (Electron) e APK Android",
+        ],
+      },
+      arquitetura: {
+        stack: [
+          { label: "Frontend", value: "React 19 + TypeScript + Vite 8 + Tailwind CSS 4" },
+          { label: "Backend", value: "Supabase (Auth + PostgreSQL + RLS + Realtime)" },
+          { label: "Desktop", value: "Electron (Windows portable)" },
+          { label: "Mobile", value: "Capacitor (Android APK)" },
+          { label: "CI", value: "GitHub Actions (lint + build)" },
+        ],
+        estrutura: [
+          { path: "src/screens/", desc: "Telas — estoque, histórico, alertas, importação e branding" },
+          { path: "src/components/", desc: "Componentes reutilizáveis da interface" },
+          { path: "src/context/", desc: "Estado global — auth, tenant e tema por empresa" },
+          { path: "src/lib/", desc: "Integração Supabase, movimentações e helpers" },
+          { path: "supabase/", desc: "Schema SQL, migrações B2B e políticas RLS" },
+          { path: "electron/", desc: "Empacotamento desktop Windows" },
+          { path: "android/", desc: "Projeto Capacitor para build APK" },
+        ],
+        decisoes: [
+          "Multi-tenant por tenant_id com isolamento via Row Level Security (RLS)",
+          "Mesmo código-base com 3 modos controlados por VITE_APP_MODE",
+          "Movimentações atômicas via RPC register_movement no PostgreSQL",
+          "Branding dinâmico persistido em tenant_settings",
+          "Realtime do Supabase para atualização de estoque em tempo real",
+          "Release matriz por modo (demo, operação, catálogo) via GitHub Actions",
+        ],
+        secoes: [
+          {
+            titulo: "Modos de produto",
+            texto: [
+              "O app roda em demo (demonstração comercial), operação (gestão completa) ou catálogo (consulta sem movimentações), alternados por variável de ambiente no build.",
+              "Isso permite entregar builds específicos para cada contexto comercial sem manter repositórios separados.",
+            ],
+          },
+          {
+            titulo: "Modelo B2B",
+            texto:
+              "Cada usuário pertence a um tenant (estabelecimento). Produtos e movimentos ficam isolados por RLS; platform admin gerencia tenants e personalização visual de cada cliente.",
+          },
+        ],
+      },
+      testes: {
+        cobertura: [
+          "Pipeline CI com lint (Oxlint) e build TypeScript + Vite a cada push e PR na main.",
+          "Validação manual dos fluxos de estoque, importação e branding nos três modos de produto.",
+        ],
+        cenarios: [
+          "Login e isolamento de dados entre tenants",
+          "Entrada, saída e ajuste de estoque com bloqueio de saldo negativo",
+          "Histórico de movimentações com usuário e quantidades anteriores",
+          "Alertas de baixo estoque e estoque zerado",
+          "Importação de planilha XLSX",
+          "Build desktop (Electron) e APK Android",
+        ],
+      },
+      mer: {
+        intro:
+          "Modelo de dados principal do InjetBox. Cada estabelecimento (tenant) possui produtos e movimentos isolados via RLS.",
+        entidades: [
+          { nome: "tenants", campos: [["PK", "id"], ["", "name"], ["", "created_at"]] },
+          { nome: "profiles", campos: [["PK", "id"], ["FK", "tenant_id"], ["", "name"], ["", "is_admin"], ["", "is_platform_admin"]] },
+          { nome: "tenant_settings", campos: [["PK", "tenant_id"], ["", "company_name"], ["", "logo_url"], ["", "primary_color"], ["", "background_color"]] },
+          { nome: "products", campos: [["PK", "id"], ["FK", "tenant_id"], ["FK", "user_id"], ["", "code"], ["", "brand"], ["", "quantity"], ["", "min_quantity"]] },
+          { nome: "movements", campos: [["PK", "id"], ["FK", "tenant_id"], ["FK", "product_id"], ["", "type"], ["", "quantity"], ["", "previous_quantity"], ["", "new_quantity"]] },
+        ],
+        relacionamentos: [
+          "tenants 1 — N profiles",
+          "tenants 1 — 1 tenant_settings",
+          "tenants 1 — N products",
+          "tenants 1 — N movements",
+          "products 1 — N movements",
+        ],
+      },
+    },
+  },
+  {
     nome: "Organizaê",
     categoria: "Projeto Comercial",
     descricao:
