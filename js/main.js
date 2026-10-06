@@ -131,8 +131,8 @@
       .map((opt) => {
         const isActive = opt === activeFilter;
         const color = opt === "Todos" ? "var(--accent)" : categoryColor(opt);
-        return `<button class="filter-btn${isActive ? " is-active" : ""}" role="tab"
-                  aria-selected="${isActive}" data-filter="${escapeHTML(opt)}">
+        return `<button type="button" class="filter-btn${isActive ? " is-active" : ""}"
+                  aria-pressed="${isActive}" data-filter="${escapeHTML(opt)}">
                   <span class="filter-btn__dot" style="color:${color}"></span>${escapeHTML(opt)}
                 </button>`;
       })
@@ -381,16 +381,18 @@
     const showTab = (key) => {
       content.innerHTML = renderDetailSection(detalhes[key]);
       content.scrollTop = 0;
-      $$(".modal__nav-btn", nav).forEach((b) =>
-        b.classList.toggle("is-active", b.dataset.tab === key)
-      );
+      $$(".modal__nav-btn", nav).forEach((b) => {
+        const active = b.dataset.tab === key;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
     };
 
     if (tabs.length) {
       nav.innerHTML = tabs
         .map(
           (t) =>
-            `<button class="modal__nav-btn" data-tab="${t.key}">${escapeHTML(t.label)}</button>`
+            `<button type="button" class="modal__nav-btn" data-tab="${t.key}" aria-pressed="false">${escapeHTML(t.label)}</button>`
         )
         .join("");
       nav.style.display = "";
@@ -425,8 +427,11 @@
     // Abre
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
+    setBackgroundInert(true);
     document.body.style.overflow = "hidden";
-    $("[data-modal] .modal__close").focus();
+    // O modal só aceita foco depois que a transição de visibility começa.
+    const closeBtn = $("[data-modal] .modal__close");
+    requestAnimationFrame(() => requestAnimationFrame(() => closeBtn.focus()));
   }
 
   function closeModal() {
@@ -434,8 +439,35 @@
     if (!modal || !modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
+    setBackgroundInert(false);
     document.body.style.overflow = "";
     if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+  }
+
+  // Enquanto o modal está aberto, o resto da página não recebe foco nem clique.
+  function setBackgroundInert(inert) {
+    $$("body > header, body > main, body > footer").forEach((el) => {
+      el.inert = inert;
+    });
+  }
+
+  // Mantém o Tab circulando dentro do modal.
+  function trapFocus(e, modal) {
+    const focusable = $$(
+      "a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'])",
+      $(".modal__dialog", modal)
+    ).filter((el) => el.offsetParent !== null);
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 
   function initModal() {
@@ -447,7 +479,9 @@
     );
 
     window.addEventListener("keydown", (e) => {
+      if (!modal.classList.contains("is-open")) return;
       if (e.key === "Escape") closeModal();
+      if (e.key === "Tab") trapFocus(e, modal);
     });
   }
 
@@ -492,7 +526,7 @@
 
     // Fecha com a tecla Esc
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape" && menu.classList.contains("is-open")) setOpen(false);
     });
   }
 

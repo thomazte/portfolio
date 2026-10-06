@@ -52,8 +52,6 @@
       "a, button, [role='button'], input, textarea, select, label, .project-card, .skill, .contact-link, .filter-btn, .modal__tab, .nav__link, .mobile-menu__link";
 
     mm.add("(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine)", () => {
-      document.body.classList.add("has-custom-cursor");
-
       const dotX = gsap.quickSetter(dot, "x", "px");
       const dotY = gsap.quickSetter(dot, "y", "px");
       const ringX = gsap.quickTo(ring, "x", { duration: 0.18, ease: "power2.out" });
@@ -61,7 +59,9 @@
 
       gsap.set([dot, ring], { xPercent: -50, yPercent: -50 });
 
+      // O cursor nativo só some depois que o customizado já está seguindo o mouse.
       const move = (e) => {
+        document.body.classList.add("has-custom-cursor");
         dotX(e.clientX);
         dotY(e.clientY);
         ringX(e.clientX);
@@ -225,17 +225,21 @@
     });
   }
 
+  let started = false;
+  function start() {
+    if (started) return;
+    started = true;
+    setupAnimations();
+  }
+
   // O conteúdo dinâmico (skills/projetos) já foi renderizado por main.js
   // antes deste script (carregados em ordem com defer). Mas, por segurança,
   // aguardamos o evento caso a ordem mude no futuro.
   if (document.querySelector("[data-projects] .project-card, [data-skills] .skill")) {
-    setupAnimations();
+    start();
   } else {
-    document.addEventListener("content:ready", setupAnimations, { once: true });
+    document.addEventListener("content:ready", start, { once: true });
     // Fallback: garante execução mesmo sem o evento
-    window.addEventListener("load", () => {
-      if (!window.__animsReady) setupAnimations();
-    });
+    window.addEventListener("load", start, { once: true });
   }
-  window.__animsReady = true;
 })();

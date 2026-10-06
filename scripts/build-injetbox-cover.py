@@ -9,15 +9,15 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "assets" / "projects" / "injetbox-logo-source.png"
-OUTPUT = ROOT / "assets" / "projects" / "injetbox-cover.png"
+SOURCE = ROOT / "scripts" / "source" / "injetbox-logo.jpg"
+OUTPUT = ROOT / "assets" / "projects" / "injetbox-cover.webp"
 
 # Cores amostradas do fundo do ícone InjetBox
 GRAD_LIGHT = (45, 195, 252)   # brilho ciano no topo
 GRAD_MID = (2, 120, 248)      # azul elétrico
 GRAD_EDGE = (0, 40, 100)      # borda escura do ícone
 
-COVER_W, COVER_H = 1920, 1080
+COVER_W, COVER_H = 960, 540
 GRAD_CX, GRAD_CY = COVER_W / 2, COVER_H * 0.36
 
 
@@ -134,7 +134,7 @@ def main() -> None:
         raise SystemExit(f"Logo fonte não encontrada: {SOURCE}")
 
     cover = build_cover(SOURCE)
-    cover.save(OUTPUT, "PNG", optimize=True)
+    cover.save(OUTPUT, "WEBP", quality=88, method=6)
 
     capa_color, capa_gradient = css_gradient()
     print(f"Capa: {OUTPUT} ({COVER_W}x{COVER_H})")
