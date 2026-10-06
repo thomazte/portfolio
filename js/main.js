@@ -38,6 +38,32 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v2.5c0 2.2-3 4-3 7.5a5 5 0 0 0 10 0c0-3.5-3-5.3-3-7.5V3"/><path d="m9 14 2 2 4-4"/></svg>',
     playwright:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="m10 9 5 3-5 3V9z"/></svg>',
+    react:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
+    ts:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 11h5M9.5 11v6"/><path d="M18 12a1.5 1.5 0 0 0-3 0c0 1.5 3 1.5 3 3a1.5 1.5 0 0 1-3 0"/></svg>',
+    node:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 20.5 7.3v9.4L12 21.5l-8.5-4.8V7.3z"/><path d="M10.5 9.5v4.5a1.5 1.5 0 0 1-3 0"/><path d="M16.5 10.5a1.5 1.5 0 0 0-3 0c0 1.5 3 1.5 3 3a1.5 1.5 0 0 1-3 0"/></svg>',
+    tailwind:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11c1.5-3 3.5-4.5 6-4.5 3.5 0 4 3 6 3 1.5 0 2.5-.8 3.5-2.5"/><path d="M5.5 17.5c1.5-3 3.5-4.5 6-4.5 3.5 0 4 3 6 3 1.5 0 2.5-.8 3.5-2.5"/></svg>',
+    flutter:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5 4 13l3 3L20.5 2.5z"/><path d="M14.5 11.5 9 17l5.5 4.5h6L15 17l5.5-5.5z"/></svg>',
+    dart:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="13" r="8"/><circle cx="11" cy="13" r="4"/><path d="m11 13 9-9"/><path d="M17 4h3v3"/></svg>',
+    electron:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(150 12 12)"/><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="2.5" r="1.2" fill="currentColor"/></svg>',
+    mobile:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',
+    redis:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 4.5-9 4.5-9-4.5z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>',
+    terminal:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3"/><path d="M12.5 15h4"/></svg>',
+    actions:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/><path d="M7.5 12h9"/><path d="M12 7v10"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="19" r="2"/></svg>',
+    linux:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.2 0-3.5 1.8-3.5 4.2 0 1.6-.5 2.8-1.5 4.3-1.2 1.8-2 3.7-2 5.5 0 2.2 3 4 7 4s7-1.8 7-4c0-1.8-.8-3.7-2-5.5-1-1.5-1.5-2.7-1.5-4.3C15.5 4.8 14.2 3 12 3z"/><path d="M9.5 13c0 3 1 5 2.5 5s2.5-2 2.5-5"/><circle cx="10.5" cy="7" r=".6" fill="currentColor"/><circle cx="13.5" cy="7" r=".6" fill="currentColor"/><path d="m11 9 1 .8 1-.8"/></svg>',
+    server:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/><path d="M7 7h.01M7 17h.01"/><path d="M11 7h6M11 17h6"/></svg>',
   };
 
   /* Lista de tecnologias exibidas na seção Skills */
@@ -46,14 +72,27 @@
     { name: "Spring Boot", icon: "spring" },
     { name: "JUnit", icon: "junit" },
     { name: "JavaScript", icon: "js" },
+    { name: "TypeScript", icon: "ts" },
+    { name: "React", icon: "react" },
+    { name: "Node.js", icon: "node" },
     { name: "HTML", icon: "html" },
     { name: "CSS", icon: "css" },
+    { name: "Tailwind CSS", icon: "tailwind" },
+    { name: "Flutter", icon: "flutter" },
+    { name: "Dart", icon: "dart" },
+    { name: "Electron", icon: "electron" },
+    { name: "Capacitor", icon: "mobile" },
     { name: "SQL Server", icon: "db" },
     { name: "PostgreSQL", icon: "postgres" },
     { name: "Supabase", icon: "supabase" },
-    { name: "Git", icon: "git" },
+    { name: "Redis", icon: "redis" },
     { name: "Python", icon: "python" },
+    { name: "PowerShell", icon: "terminal" },
+    { name: "Git", icon: "git" },
+    { name: "GitHub Actions", icon: "actions" },
     { name: "Docker", icon: "docker" },
+    { name: "Linux", icon: "linux" },
+    { name: "Nginx", icon: "server" },
     { name: "Playwright", icon: "playwright" },
   ];
 
